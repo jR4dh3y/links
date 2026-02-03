@@ -3,7 +3,7 @@
 
 export const profile = {
   name: 'Radhey Kalra',
-  tagline: 'Developer & Creator',
+  tagline: 'CSE Student | Developer ',
 };
 
 export const mainLinks = [
@@ -42,6 +42,16 @@ export const socialLinks = [
     icon: 'twitter' as const,
     href: 'https://x.com/jr4dh3y',
     label: 'X',
+  },
+  {
+    icon: 'discord' as const,
+    href: 'https://discord.com/users/jr4dh3y',
+    label: 'Discord',
+  },
+  {
+    icon: 'steam' as const,
+    href: 'https://steamcommunity.com/profiles/76561198967316865',
+    label: 'Steam',
   },
   {
     icon: 'mail' as const,

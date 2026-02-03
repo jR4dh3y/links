@@ -41,41 +41,37 @@ const {
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="relative overflow-x-hidden">
-    <!-- Grain overlay for texture -->
-    <div class="grain-overlay" aria-hidden="true"></div>
+  <body class="relative overflow-hidden font-display bg-surface-dark text-text-primary h-dvh leading-relaxed antialiased">
+    <!-- Background layer 1 -->
+    <div 
+      class="fixed inset-0 bg-cover bg-center blur-[8px] scale-105 pointer-events-none z-0"
+      style="background-image: url('/bg2.jpg');"
+      aria-hidden="true"
+    ></div>
     
-    <!-- Subtle gradient orb -->
-    <div class="gradient-orb" aria-hidden="true"></div>
+    <!-- Background layer 2 with blend -->
+    <!-- <div 
+      class="fixed inset-0 bg-cover bg-center blur-[8px] scale-105 pointer-events-none z-0 mix-blend-overlay opacity-50"
+      style="background-image: url('/bg2.jpg');"
+      aria-hidden="true"
+    ></div> -->
     
-    <slot />
+    <!-- Dark overlay for readability -->
+    <div 
+      class="fixed inset-0 bg-surface-dark/70 pointer-events-none z-0"
+      aria-hidden="true"
+    ></div>
+    
+    <!-- Checkbox grid pattern overlay -->
+    <div 
+      class="fixed inset-0 pointer-events-none z-0 opacity-60"
+      style="background-image: linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 20px 20px;"
+      aria-hidden="true"
+    ></div>
+    
+    <!-- Content layer -->
+    <div class="relative z-10 h-full overflow-auto">
+      <slot />
+    </div>
   </body>
 </html>
-
-<style>
-  .grain-overlay {
-    position: fixed;
-    inset: -200%;
-    width: 400%;
-    height: 400%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    opacity: 0.03;
-    pointer-events: none;
-    z-index: 100;
-    animation: grain 8s steps(10) infinite;
-  }
-
-  .gradient-orb {
-    position: fixed;
-    top: -20%;
-    right: -10%;
-    width: 50vw;
-    height: 50vw;
-    max-width: 600px;
-    max-height: 600px;
-    background: radial-gradient(circle, var(--color-accent-soft) 0%, transparent 70%);
-    filter: blur(80px);
-    pointer-events: none;
-    z-index: -1;
-  }
-</style>

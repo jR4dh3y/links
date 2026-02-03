@@ -18,170 +18,38 @@ const iconMap = {
 };
 
 const IconComponent = iconMap[icon];
-const staggerClass = `stagger-${index + 1}`;
+const delayClass = `stagger-${index + 1}`;
 ---
 
 <a 
   href={href} 
   target="_blank" 
   rel="noopener noreferrer"
-  class:list={["link-card", staggerClass]}
+  class:list={[
+    "group relative block no-underline text-inherit opacity-0 animate-slide-up",
+    delayClass
+  ]}
   aria-label={`Visit ${label}`}
 >
-  <div class="link-card-inner">
-    <div class="icon-wrapper">
+  <!-- Card inner -->
+  <div class="relative z-10 flex items-center gap-4 p-4 md:p-5 md:gap-5 bg-surface border border-border rounded-xl transition-all duration-150 group-hover:bg-surface-elevated group-hover:border-border-hover group-hover:-translate-y-0.5 group-active:translate-y-0">
+    <!-- Icon wrapper -->
+    <div class="flex items-center justify-center w-11 h-11 md:w-12 md:h-12 shrink-0 bg-surface-elevated border border-border rounded-[10px] text-text-secondary transition-all duration-150 group-hover:bg-accent-soft group-hover:border-accent group-hover:text-accent">
       <IconComponent size={24} stroke-width={1.5} />
     </div>
     
-    <div class="link-content">
-      <span class="link-label">{label}</span>
-      <span class="link-description">{description}</span>
+    <!-- Content -->
+    <div class="flex-1 flex flex-col gap-0.5 min-w-0">
+      <span class="font-display text-base md:text-[1.0625rem] font-semibold text-text-primary tracking-tight">{label}</span>
+      <span class="font-mono text-xs md:text-[0.8125rem] text-text-muted tracking-wide">{description}</span>
     </div>
     
-    <div class="arrow-wrapper">
+    <!-- Arrow -->
+    <div class="flex items-center justify-center shrink-0 text-text-muted -translate-x-0.5 translate-y-0.5 transition-all duration-300 group-hover:text-accent group-hover:translate-x-0 group-hover:translate-y-0">
       <ArrowUpRight size={18} stroke-width={2} />
     </div>
   </div>
   
-  <div class="link-card-glow" aria-hidden="true"></div>
+  <!-- Glow effect -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--color-accent-soft)_0%,transparent_70%)] rounded-xl opacity-0 blur-[20px] transition-opacity duration-300 group-hover:opacity-100 z-0" aria-hidden="true"></div>
 </a>
-
-<style>
-  .link-card {
-    position: relative;
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    opacity: 0;
-    animation: slide-up 0.5s ease-out forwards;
-  }
-
-  .link-card-inner {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 1.25rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    transition: 
-      background-color var(--transition-fast),
-      border-color var(--transition-fast),
-      transform var(--transition-smooth);
-    z-index: 1;
-  }
-
-  .link-card:hover .link-card-inner {
-    background: var(--color-surface-elevated);
-    border-color: var(--color-border-hover);
-    transform: translateY(-2px);
-  }
-
-  .link-card:active .link-card-inner {
-    transform: translateY(0);
-  }
-
-  .link-card-glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      ellipse at center,
-      var(--color-accent-soft) 0%,
-      transparent 70%
-    );
-    border-radius: 12px;
-    opacity: 0;
-    filter: blur(20px);
-    transition: opacity var(--transition-smooth);
-    z-index: 0;
-  }
-
-  .link-card:hover .link-card-glow {
-    opacity: 1;
-  }
-
-  .icon-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    flex-shrink: 0;
-    background: var(--color-surface-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: 10px;
-    color: var(--color-text-secondary);
-    transition: 
-      background-color var(--transition-fast),
-      border-color var(--transition-fast),
-      color var(--transition-fast);
-  }
-
-  .link-card:hover .icon-wrapper {
-    background: var(--color-accent-soft);
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-  }
-
-  .link-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.125rem;
-    min-width: 0;
-  }
-
-  .link-label {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    letter-spacing: -0.01em;
-  }
-
-  .link-description {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-    letter-spacing: 0.01em;
-  }
-
-  .arrow-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--color-text-muted);
-    transform: translate(-2px, 2px);
-    transition: 
-      color var(--transition-fast),
-      transform var(--transition-smooth);
-  }
-
-  .link-card:hover .arrow-wrapper {
-    color: var(--color-accent);
-    transform: translate(0, 0);
-  }
-
-  /* Desktop: wider cards with more padding */
-  @media (min-width: 768px) {
-    .link-card-inner {
-      padding: 1.25rem 1.5rem;
-      gap: 1.25rem;
-    }
-
-    .icon-wrapper {
-      width: 48px;
-      height: 48px;
-    }
-
-    .link-label {
-      font-size: 1.0625rem;
-    }
-
-    .link-description {
-      font-size: 0.8125rem;
-    }
-  }
-</style>

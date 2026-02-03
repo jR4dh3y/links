@@ -4,17 +4,19 @@ import ProfileHeader from '../components/ProfileHeader.astro';
 import LinkCard from '../components/LinkCard.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import { profile, mainLinks, socialLinks } from '../data/links';
+
+const githubUsername = 'jr4dh3y';
 ---
 
 <BaseLayout>
-  <main class="main-container">
-    <!-- Mobile Layout: Centered, stacked -->
-    <div class="mobile-layout">
-      <div class="content-wrapper">
-        <ProfileHeader profile={profile} />
-        
-        <section class="links-section" aria-label="Main links">
-          <div class="links-grid">
+  <main class="w-full h-dvh flex flex-col">
+    <!-- Mobile Layout: Single glass box (< 768px) -->
+    <div class="flex flex-col items-center justify-center flex-1 p-5 md:hidden">
+      <div class="w-full max-w-[400px] backdrop-blur-[16px] bg-surface-dark/40 border border-white/10 rounded-2xl p-6 shadow-2xl">
+        <div class="flex flex-col gap-6">
+          <ProfileHeader name={profile.name} tagline={profile.tagline} githubUsername={githubUsername} />
+          
+          <section class="flex flex-col gap-3" aria-label="Main links">
             {mainLinks.map((link, index) => (
               <LinkCard 
                 href={link.href}
@@ -24,28 +26,32 @@ import { profile, mainLinks, socialLinks } from '../data/links';
                 index={index}
               />
             ))}
-          </div>
-        </section>
+          </section>
 
-        <section class="social-section" aria-label="Social links">
-          <SocialLinks links={socialLinks} />
-        </section>
+          <section class="flex justify-center" aria-label="Social links">
+            <SocialLinks links={socialLinks} />
+          </section>
+        </div>
       </div>
     </div>
 
-    <!-- Desktop Layout: Side-by-side with more visual interest -->
-    <div class="desktop-layout">
-      <div class="left-panel">
-        <div class="profile-sticky">
-          <ProfileHeader profile={profile} />
+    <!-- Desktop Layout: Two separate glass boxes (>= 768px) -->
+    <div class="hidden md:flex md:gap-10 lg:gap-16 h-dvh max-w-[1300px] mx-auto px-8 lg:px-16 py-12 lg:py-16 items-center justify-center">
+      <!-- Left glass box -->
+      <div class="w-[380px] lg:w-[415px] flex-shrink-0 backdrop-blur-[20px] bg-surface-dark/40 border border-white/10 rounded-2xl p-8 lg:p-10 shadow-2xl">
+        <div class="flex flex-col gap-6">
+          <ProfileHeader name={profile.name} tagline={profile.tagline} githubUsername={githubUsername} />
           <SocialLinks links={socialLinks} />
         </div>
       </div>
 
-      <div class="right-panel">
-        <section class="links-section" aria-label="Main links">
-          <h2 class="section-label">Explore</h2>
-          <div class="links-grid">
+      <!-- Right glass box - links (much wider) -->
+      <div class="w-[600px] lg:w-[600px] flex-shrink-0 backdrop-blur-[20px] bg-surface-dark/40 border border-white/10 rounded-2xl p-8 lg:p-12 shadow-2xl">
+        <section class="flex flex-col gap-4" aria-label="Main links">
+          <h2 class="font-mono text-[0.6875rem] font-medium uppercase tracking-[0.15em] text-text-muted mb-1 opacity-0 animate-fade-in animation-delay-300">
+            Explore
+          </h2>
+          <div class="flex flex-col gap-4">
             {mainLinks.map((link, index) => (
               <LinkCard 
                 href={link.href}
@@ -60,163 +66,4 @@ import { profile, mainLinks, socialLinks } from '../data/links';
       </div>
     </div>
   </main>
-
-  <footer class="footer">
-    <p class="footer-text">
-      <span class="footer-accent">&copy; {new Date().getFullYear()}</span> Radhey Kalra
-    </p>
-  </footer>
 </BaseLayout>
-
-<style>
-  .main-container {
-    width: 100%;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* ================================
-     Mobile Layout (< 768px)
-  ================================ */
-  .mobile-layout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: calc(100dvh - 60px);
-    padding: 2rem 1.25rem;
-  }
-
-  .content-wrapper {
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .desktop-layout {
-    display: none;
-  }
-
-  .links-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .links-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .social-section {
-    display: flex;
-    justify-content: center;
-    padding-top: 0.5rem;
-  }
-
-  .section-label {
-    display: none;
-  }
-
-  /* ================================
-     Desktop Layout (>= 768px)
-  ================================ */
-  @media (min-width: 768px) {
-    .mobile-layout {
-      display: none;
-    }
-
-    .desktop-layout {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 3rem;
-      min-height: calc(100dvh - 80px);
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 3rem 2rem;
-      align-items: start;
-    }
-
-    .left-panel {
-      position: relative;
-    }
-
-    .profile-sticky {
-      position: sticky;
-      top: 3rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .right-panel {
-      padding-top: 0.5rem;
-    }
-
-    .links-section {
-      gap: 1rem;
-    }
-
-    .links-grid {
-      gap: 1rem;
-    }
-
-    .section-label {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 0.6875rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--color-text-muted);
-      margin-bottom: 0.25rem;
-      opacity: 0;
-      animation: fade-in 0.5s ease-out 0.3s forwards;
-    }
-  }
-
-  /* ================================
-     Large Desktop (>= 1024px)
-  ================================ */
-  @media (min-width: 1024px) {
-    .desktop-layout {
-      gap: 4rem;
-      padding: 4rem 3rem;
-    }
-  }
-
-  /* ================================
-     Footer
-  ================================ */
-  .footer {
-    padding: 1.5rem;
-    text-align: center;
-    opacity: 0;
-    animation: fade-in 0.5s ease-out 0.6s forwards;
-  }
-
-  .footer-text {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-    margin: 0;
-  }
-
-  .footer-accent {
-    color: var(--color-text-secondary);
-  }
-
-  @media (min-width: 768px) {
-    .footer {
-      padding: 2rem;
-    }
-
-    .footer-text {
-      font-size: 0.8125rem;
-    }
-  }
-</style>

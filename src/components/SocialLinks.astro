@@ -1,10 +1,11 @@
 ---
-import { Github, Linkedin, Twitter, Mail } from '@lucide/astro';
+import * as icons from 'simple-icons';
+import { Linkedin } from '@lucide/astro';
 
 interface SocialLinkData {
   href: string;
   label: string;
-  icon: 'github' | 'linkedin' | 'twitter' | 'mail';
+  icon: 'github' | 'linkedin' | 'twitter' | 'mail' | 'discord' | 'steam';
 }
 
 interface Props {
@@ -13,118 +14,60 @@ interface Props {
 
 const { links } = Astro.props;
 
-const iconMap = {
-  'github': Github,
-  'linkedin': Linkedin,
-  'twitter': Twitter,
-  'mail': Mail,
+const simpleIconMap: Record<string, any> = {
+  'github': icons.siGithub,
+  'twitter': icons.siX,
+  'mail': icons.siGmail,
+  'discord': icons.siDiscord,
+  'steam': icons.siSteam,
+};
+
+// Platform-specific hover colors
+const hoverColors: Record<string, string> = {
+  'GitHub': 'hover:border-[#6e5494] hover:text-[#c9b1ff]',
+  'LinkedIn': 'hover:border-[#0a66c2] hover:text-[#5aa7ff]',
+  'X': 'hover:border-[#536471] hover:text-[#e7e9ea]',
+  'Email': 'hover:border-accent hover:text-accent',
+  'Discord': 'hover:border-[#5865F2] hover:text-[#5865F2]',
+  'Steam': 'hover:border-[#1b2838] hover:text-[#66c0f4]',
 };
 ---
 
-<nav class="social-links" aria-label="Social media links">
-  <ul class="social-list">
+<nav class="opacity-0 animate-fade-in animation-delay-500" aria-label="Social media links">
+  <ul class="flex items-center justify-center gap-2 list-none m-0 p-0 md:justify-start md:gap-3">
     {links.map((link, index) => {
-      const IconComponent = iconMap[link.icon];
+      const iconData = simpleIconMap[link.icon];
+      const hoverClass = hoverColors[link.label] || 'hover:border-border-hover hover:text-text-primary';
+      const isLinkedIn = link.icon === 'linkedin';
       return (
-        <li class="social-item" style={`animation-delay: ${0.4 + index * 0.05}s`}>
+        <li class="opacity-0 animate-fade-in" style={`animation-delay: ${0.4 + index * 0.05}s`}>
           <a 
             href={link.href}
             target={link.icon === 'mail' ? '_self' : '_blank'}
             rel={link.icon === 'mail' ? undefined : 'noopener noreferrer'}
-            class="social-link"
+            class:list={[
+              "flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-[10px] bg-transparent border border-border text-text-secondary no-underline transition-all duration-150 hover:bg-surface-elevated hover:-translate-y-0.5 active:translate-y-0",
+              hoverClass
+            ]}
             aria-label={link.label}
             title={link.label}
           >
-            <IconComponent size={20} stroke-width={1.5} />
+            {isLinkedIn ? (
+              <Linkedin size={20} stroke-width={1.5} />
+            ) : iconData ? (
+              <svg 
+                role="img" 
+                viewBox="0 0 24 24" 
+                width="20" 
+                height="20" 
+                fill="currentColor"
+              >
+                <path d={iconData.path} />
+              </svg>
+            ) : null}
           </a>
         </li>
       );
     })}
   </ul>
 </nav>
-
-<style>
-  .social-links {
-    opacity: 0;
-    animation: fade-in 0.5s ease-out 0.5s forwards;
-  }
-
-  .social-list {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  @media (min-width: 768px) {
-    .social-list {
-      justify-content: flex-start;
-      gap: 0.75rem;
-    }
-  }
-
-  .social-item {
-    opacity: 0;
-    animation: fade-in 0.4s ease-out forwards;
-  }
-
-  .social-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: transparent;
-    border: 1px solid var(--color-border);
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    transition: 
-      background-color var(--transition-fast),
-      border-color var(--transition-fast),
-      color var(--transition-fast),
-      transform var(--transition-smooth);
-  }
-
-  .social-link:hover {
-    background: var(--color-surface-elevated);
-    border-color: var(--color-border-hover);
-    color: var(--color-text-primary);
-    transform: translateY(-2px);
-  }
-
-  .social-link:active {
-    transform: translateY(0);
-  }
-
-  /* Platform-specific hover colors */
-  .social-link[aria-label="GitHub"]:hover {
-    border-color: #6e5494;
-    color: #c9b1ff;
-  }
-
-  .social-link[aria-label="LinkedIn"]:hover {
-    border-color: #0a66c2;
-    color: #5aa7ff;
-  }
-
-  .social-link[aria-label="X"]:hover {
-    border-color: #536471;
-    color: #e7e9ea;
-  }
-
-  .social-link[aria-label="Email"]:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-  }
-
-  @media (min-width: 768px) {
-    .social-link {
-      width: 44px;
-      height: 44px;
-    }
-  }
-</style>
