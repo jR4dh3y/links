@@ -1,17 +1,222 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProfileHeader from '../components/ProfileHeader.astro';
+import LinkCard from '../components/LinkCard.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import { profile, mainLinks, socialLinks } from '../data/links';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <main class="main-container">
+    <!-- Mobile Layout: Centered, stacked -->
+    <div class="mobile-layout">
+      <div class="content-wrapper">
+        <ProfileHeader profile={profile} />
+        
+        <section class="links-section" aria-label="Main links">
+          <div class="links-grid">
+            {mainLinks.map((link, index) => (
+              <LinkCard 
+                href={link.href}
+                label={link.label}
+                description={link.description}
+                icon={link.icon}
+                index={index}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section class="social-section" aria-label="Social links">
+          <SocialLinks links={socialLinks} />
+        </section>
+      </div>
+    </div>
+
+    <!-- Desktop Layout: Side-by-side with more visual interest -->
+    <div class="desktop-layout">
+      <div class="left-panel">
+        <div class="profile-sticky">
+          <ProfileHeader profile={profile} />
+          <SocialLinks links={socialLinks} />
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <section class="links-section" aria-label="Main links">
+          <h2 class="section-label">Explore</h2>
+          <div class="links-grid">
+            {mainLinks.map((link, index) => (
+              <LinkCard 
+                href={link.href}
+                label={link.label}
+                description={link.description}
+                icon={link.icon}
+                index={index}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-text">
+      <span class="footer-accent">&copy; {new Date().getFullYear()}</span> Radhey Kalra
+    </p>
+  </footer>
+</BaseLayout>
+
+<style>
+  .main-container {
+    width: 100%;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ================================
+     Mobile Layout (< 768px)
+  ================================ */
+  .mobile-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100dvh - 60px);
+    padding: 2rem 1.25rem;
+  }
+
+  .content-wrapper {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .desktop-layout {
+    display: none;
+  }
+
+  .links-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .links-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .social-section {
+    display: flex;
+    justify-content: center;
+    padding-top: 0.5rem;
+  }
+
+  .section-label {
+    display: none;
+  }
+
+  /* ================================
+     Desktop Layout (>= 768px)
+  ================================ */
+  @media (min-width: 768px) {
+    .mobile-layout {
+      display: none;
+    }
+
+    .desktop-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+      min-height: calc(100dvh - 80px);
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      align-items: start;
+    }
+
+    .left-panel {
+      position: relative;
+    }
+
+    .profile-sticky {
+      position: sticky;
+      top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .right-panel {
+      padding-top: 0.5rem;
+    }
+
+    .links-section {
+      gap: 1rem;
+    }
+
+    .links-grid {
+      gap: 1rem;
+    }
+
+    .section-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.25rem;
+      opacity: 0;
+      animation: fade-in 0.5s ease-out 0.3s forwards;
+    }
+  }
+
+  /* ================================
+     Large Desktop (>= 1024px)
+  ================================ */
+  @media (min-width: 1024px) {
+    .desktop-layout {
+      gap: 4rem;
+      padding: 4rem 3rem;
+    }
+  }
+
+  /* ================================
+     Footer
+  ================================ */
+  .footer {
+    padding: 1.5rem;
+    text-align: center;
+    opacity: 0;
+    animation: fade-in 0.5s ease-out 0.6s forwards;
+  }
+
+  .footer-text {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .footer-accent {
+    color: var(--color-text-secondary);
+  }
+
+  @media (min-width: 768px) {
+    .footer {
+      padding: 2rem;
+    }
+
+    .footer-text {
+      font-size: 0.8125rem;
+    }
+  }
+</style>
