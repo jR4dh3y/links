@@ -30,7 +30,7 @@
   /* Typography - Cascadia Code for everything except name */
   --font-display: 'Cascadia Code', 'Cascadia Mono', 'Fira Code', monospace;
   --font-mono: 'Cascadia Code', 'Cascadia Mono', 'Fira Code', monospace;
-  --font-name: 'Syne', sans-serif;
+  --font-name: 'Bank Gothic', sans-serif;
   
   /* Custom animations */
   --animate-fade-in: fade-in 0.6s ease-out forwards;
