@@ -19,10 +19,16 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     
-    <!-- Fonts - Syne (geometric display) + JetBrains Mono (tech feel) -->
+    <!-- Preconnect to external domains for faster loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://github.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+    <link rel="dns-prefetch" href="https://github.com" />
+    
+    <!-- Fonts - Cascadia Code (main) + Syne (name only) -->
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -65,7 +71,7 @@ const {
     <!-- Checkbox grid pattern overlay -->
     <div 
       class="fixed inset-0 pointer-events-none z-0 opacity-60"
-      style="background-image: linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 20px 20px;"
+      style="background-image: linear-gradient(rgba(220,217,231,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(220,217,231,0.06) 1px, transparent 1px); background-size: 20px 20px;"
       aria-hidden="true"
     ></div>
     

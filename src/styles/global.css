@@ -1,25 +1,36 @@
 @import "tailwindcss";
 
+/* Cascadia Code font */
+@font-face {
+  font-family: 'Cascadia Code';
+  src: url('https://cdn.jsdelivr.net/gh/microsoft/cascadia-code@v2111.01/packages/cascadia-code/build/CascadiaCode.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  /* Custom color palette - refined dark with warm accent */
-  --color-surface-dark: #0a0a0a;
-  --color-surface: #111111;
-  --color-surface-elevated: #1a1a1a;
-  --color-surface-hover: #222222;
+  /* Custom color palette - purple accent theme */
+  --color-surface-dark: #1e1e20;
+  --color-surface: #2a2a2c;
+  --color-surface-elevated: #323234;
+  --color-surface-hover: #3a3a3c;
   
-  --color-text-primary: #fafafa;
-  --color-text-secondary: #a0a0a0;
-  --color-text-muted: #666666;
+  --color-text-primary: #dcd9e7;
+  --color-text-secondary: #b0abb8;
+  --color-text-muted: #9c96ad;
   
-  --color-accent: #ff6b35;
-  --color-accent-soft: rgba(255, 107, 53, 0.15);
+  --color-accent: #c59edc;
+  --color-accent-soft: rgba(197, 158, 220, 0.15);
+  --color-highlight: #c3fb5b;
   
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.15);
+  --color-border: rgba(220, 217, 231, 0.08);
+  --color-border-hover: rgba(220, 217, 231, 0.15);
   
-  /* Typography */
-  --font-display: 'Syne', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* Typography - Cascadia Code for everything except name */
+  --font-display: 'Cascadia Code', 'Cascadia Mono', 'Fira Code', monospace;
+  --font-mono: 'Cascadia Code', 'Cascadia Mono', 'Fira Code', monospace;
+  --font-name: 'Syne', sans-serif;
   
   /* Custom animations */
   --animate-fade-in: fade-in 0.6s ease-out forwards;
@@ -64,13 +75,13 @@
 
 /* Base selection styling */
 ::selection {
-  background-color: var(--color-accent);
+  background-color: var(--color-highlight);
   color: var(--color-surface-dark);
 }
 
 /* Focus visible */
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-highlight);
   outline-offset: 2px;
 }
 

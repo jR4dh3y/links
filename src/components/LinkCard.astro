@@ -31,16 +31,16 @@ const delayClass = `stagger-${index + 1}`;
   ]}
   aria-label={`Visit ${label}`}
 >
-  <!-- Card inner -->
-  <div class="relative z-10 flex items-center gap-4 p-4 md:p-5 md:gap-5 bg-surface border border-border rounded-xl transition-all duration-150 group-hover:bg-surface-elevated group-hover:border-border-hover group-hover:-translate-y-0.5 group-active:translate-y-0">
-    <!-- Icon wrapper -->
-    <div class="flex items-center justify-center w-11 h-11 md:w-12 md:h-12 shrink-0 bg-surface-elevated border border-border rounded-[10px] text-text-secondary transition-all duration-150 group-hover:bg-accent-soft group-hover:border-accent group-hover:text-accent">
+  <!-- Card inner - transparent to show parent glass blur -->
+  <div class="relative z-10 flex items-center gap-4 p-4 md:p-5 md:gap-5 bg-transparent border border-text-primary/10 rounded-xl transition-all duration-150 group-hover:bg-white/5 group-hover:border-text-primary/20 group-hover:-translate-y-0.5 group-active:translate-y-0">
+    <!-- Icon wrapper - match social icons style -->
+    <div class="flex items-center justify-center w-11 h-11 md:w-12 md:h-12 shrink-0 bg-transparent border border-border rounded-[10px] text-text-secondary transition-all duration-150 group-hover:border-highlight group-hover:text-highlight">
       <IconComponent size={24} stroke-width={1.5} />
     </div>
     
     <!-- Content -->
     <div class="flex-1 flex flex-col gap-0.5 min-w-0">
-      <span class="font-display text-base md:text-[1.0625rem] font-semibold text-text-primary tracking-tight">{label}</span>
+      <span class="font-display text-base md:text-[1.0625rem] font-semibold bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent tracking-tight group-hover:from-highlight group-hover:to-highlight/80">{label}</span>
       <span class="font-mono text-xs md:text-[0.8125rem] text-text-muted tracking-wide">{description}</span>
     </div>
     
