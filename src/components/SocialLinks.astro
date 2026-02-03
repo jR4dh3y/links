@@ -1,5 +1,5 @@
 ---
-import * as icons from 'simple-icons';
+import { siGithub, siX, siGmail, siDiscord, siSteam } from 'simple-icons';
 import { Linkedin } from '@lucide/astro';
 
 interface SocialLinkData {
@@ -15,11 +15,11 @@ interface Props {
 const { links } = Astro.props;
 
 const simpleIconMap: Record<string, any> = {
-  'github': icons.siGithub,
-  'twitter': icons.siX,
-  'mail': icons.siGmail,
-  'discord': icons.siDiscord,
-  'steam': icons.siSteam,
+  'github': siGithub,
+  'twitter': siX,
+  'mail': siGmail,
+  'discord': siDiscord,
+  'steam': siSteam,
 };
 
 // Green highlight hover for all social icons
