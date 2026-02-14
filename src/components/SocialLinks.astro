@@ -46,7 +46,7 @@ const hoverColors: Record<string, string> = {
             target={link.icon === 'mail' ? '_self' : '_blank'}
             rel={link.icon === 'mail' ? undefined : 'noopener noreferrer'}
             class:list={[
-              "flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-[10px] bg-transparent border border-border text-text-secondary no-underline transition-all duration-150 hover:-translate-y-0.5 active:translate-y-0",
+              "flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-[10px] bg-transparent border border-border text-text-secondary no-underline transition-all duration-150 hover:bg-surface-elevated hover:-translate-y-0.5 active:translate-y-0",
               hoverClass
             ]}
             aria-label={link.label}
