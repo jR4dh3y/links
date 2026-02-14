@@ -14,16 +14,16 @@ export const mainLinks = [
     icon: 'globe' as const,
   },
   {
-    href: 'https://jr4.in',
+    href: 'https://howto.jr4.in',
+    label: 'HowTo',
+    description: 'Tech guides by me',
+    icon: 'book-open' as const,
+  },
+  {
+    href: 'https://cs.jr4.in',
     label: 'CS2 Profile',
     description: 'Gaming stats & highlights',
     icon: 'gamepad-2' as const,
-  },
-  {
-    href: 'https://howto.jr4.in',
-    label: 'HowTo',
-    description: 'Tech tutorials & guides',
-    icon: 'book-open' as const,
   },
 ];
 
